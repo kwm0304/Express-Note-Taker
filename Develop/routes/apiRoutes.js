@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const fs = require('fs')
+
 
 router.get('/notes', (req, res) => {
     
@@ -7,17 +9,20 @@ router.get('/notes', (req, res) => {
 router.get('/notes:id', (req, res) => {
     const result = getNotes(req.params.id, noteId)
 })
-//After entering new note title and text a save icon appears in the nav
 
-//When I click save the note moves to the left hand column
-
-//When I click on note on the left column, that note appears in the right column
-
-//When I click on the 'write' icon in nav then empty field is presented to enter a new note title and text
 
 
 //GET /api/notes should read the db.json and return all saved notes as json
-
+router.get('/api/notes', (req, res) => {
+    fs.readFile(__dirname, + '/../db/db.json', 'utf-8', function(err, data) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json(JSON.parse(data))
+        }
+    })
+})
+    
 //POST /api/notes should receive a new note to save on the req.body -> add it to db.json file -> then return the new note to client
     //Each note should have unique id
 

@@ -12,6 +12,9 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
+const readNotes = (note) => {
+  
+}
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
