@@ -1,7 +1,12 @@
-//Open on landing page -> index.html
+const router = require('express').Router();
 
+router.get('/notes', (req, res) => {
+    
+})
 //Clicking on link to notes page takes you to page w/ existing notes listed in the left column & empty fields for new notes on the right -> notes.html
-
+router.get('/notes:id', (req, res) => {
+    const result = getNotes(req.params.id, noteId)
+})
 //After entering new note title and text a save icon appears in the nav
 
 //When I click save the note moves to the left hand column
@@ -17,3 +22,6 @@
     //Each note should have unique id
 
 //DELETE notes route
+
+
+module.exports = router

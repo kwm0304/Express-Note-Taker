@@ -5,8 +5,11 @@ const app = express();
 //so db.json can store and retreive notes
 const fs = require('fs')
 
+const apiRoutes = require('./routes/apiRoutes')
+const htmlRoutes = require('./routes/htmlRoutes')
 
-
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes)
 
 
 
