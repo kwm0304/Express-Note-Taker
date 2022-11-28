@@ -9,7 +9,7 @@ router.get('/notes', (req, res) => {
 
 //Clicking on link to notes page takes you to page w/ existing notes listed in the left column & empty fields for new notes on the right -> notes.html
 router.get('/notes:id', (req, res) => {
-    const result = getNotes(req.params.id, noteId)
+    const result = renderNoteList(notes)
 })
 
 //GET /api/notes should read the db.json and return all saved notes as json
