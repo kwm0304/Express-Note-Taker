@@ -1,20 +1,19 @@
-const $noteTitle = $('.note-title');
-const $noteText = $('.note-textarea') 
-const $saveNoteBtn = $('save-note')
-const $newNoteBtn = $('.new-note')
-const $noteList = $('.list-container .list-group')
+
+let noteTitle;
+let noteText;
+let saveNoteBtn;
+let newNoteBtn;
+let noteList;
 
 if (window.location.pathname === '/notes') {
-  $noteTitle = document.querySelector('.note-title');
-  $noteText = document.querySelector('.note-textarea');
-  $saveNoteBtn = document.querySelector('.save-note');
-  $newNoteBtn = document.querySelector('.new-note');
-  $noteList = document.querySelectorAll('.list-container .list-group');
+  noteTitle = document.querySelector('.note-title');
+  noteText = document.querySelector('.note-textarea');
+    saveNoteBtn = document.querySelector('.save-note');
+  newNoteBtn = document.querySelector('.new-note');
+  noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-const readNotes = (note) => {
-  
-}
+
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -54,25 +53,26 @@ const deleteNote = (id) =>
   });
 
 const renderActiveNote = () => {
-  hide($saveNoteBtn);
+  hide(saveNoteBtn);
 
   if (activeNote.id) {
-    $noteTitle.setAttribute('readonly', true);
-    $noteText.setAttribute('readonly', true);
-    $noteTitle.value = activeNote.title;
-    $noteText.value = activeNote.text;
+    noteTitle.setAttribute('readonly', true);
+    noteText.setAttribute('readonly', true);
+    noteTitle.value = activeNote.title;
+    noteText.value = activeNote.text;
   } else {
-    $noteTitle.removeAttribute('readonly');
-    $noteText.removeAttribute('readonly');
-    $noteTitle.value = '';
-    $noteText.value = '';
+    noteTitle.removeAttribute('readonly');
+    noteText.removeAttribute('readonly');
+    noteTitle.value = '';
+    noteText.value = '';
   }
 };
 
 const handleNoteSave = () => {
   const newNote = {
-    title: $noteTitle.value,
-    text: $noteText.value,
+    title: noteTitle.value,
+    text: noteText.value,
+    id: uuidv1()
   };
   saveNote(newNote).then(() => {
     getAndRenderNotes();
@@ -112,18 +112,21 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
-  if (!$noteTitle.value.trim() || !$noteText.value.trim()) {
-    hide($saveNoteBtn);
+  if (!noteTitle.value.trim() || !noteText.value.trim()) {
+    hide(saveNoteBtn);
   } else {
-    show($saveNoteBtn);
+    show(saveNoteBtn);
   }
 };
 
+
+// function read() {fs.readFileAsync('db/db.json', 'utf8')};
+// function write(note) {return writeFileAsync('../db/db.json', JSON.stringify(note))}
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
-    $noteList.forEach((el) => (el.innerHTML = ''));
+    noteList.forEach((el) => (el.innerHTML = ''));
   }
 
   let noteListItems = [];
@@ -158,7 +161,7 @@ const renderNoteList = async (notes) => {
   };
 
   if (jsonNotes.length === 0) {
-    $noteListItems.push(createLi('No saved Notes', false));
+    noteListItems.push(createLi('No saved Notes', false));
   }
 
   jsonNotes.forEach((note) => {
@@ -173,14 +176,18 @@ const renderNoteList = async (notes) => {
   }
 };
 
+
+
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
 if (window.location.pathname === '/notes') {
-  $saveNoteBtn.addEventListener('click', handleNoteSave);
-  $newNoteBtn.addEventListener('click', handleNewNoteView);
-  $noteTitle.addEventListener('keyup', handleRenderSaveBtn);
-  $noteText.addEventListener('keyup', handleRenderSaveBtn);
+  saveNoteBtn.addEventListener('click', handleNoteSave);
+  newNoteBtn.addEventListener('click', handleNewNoteView);
+  noteTitle.addEventListener('keyup', handleRenderSaveBtn);
+  noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
 getAndRenderNotes();
+
+
