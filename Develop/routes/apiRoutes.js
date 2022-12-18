@@ -1,22 +1,25 @@
-const router =require('express').Router()
-const db = require ('../db/db.json')
-const { createNewNote } = require('../db/helper')
-const {v4 : uuidv4} = require('uuid')
-const { noteArray } = require('../db/db.json')
-// const { read, write, retrieveNotes,addNote } = require('../db/helper')
+const router = require('express').Router();
+const data = require('../../data/db.json');
+const { deleteNote, createNewNote } = require('../db/helper')
+const { v4: uuidv4 } = require('uuid');
 
-//GET /api/notes should read the db.json and return all saved notes as json
-router.get('/api/notes', (req, res) => {
-    let data = noteArray;
-    res.json(data)
-})
+router.get('/notes', (req, res) => {
+    let data = notes;
+    res.send(data);
+});
+router.get('/', (req, res) => {
+    res.send('API HERE!');
+});
+router.post('/notes', (req, res) => {
+    req.body.id = uuidv4
+    const newNote = createNewNote(req.body, notes)
+    res.json(newNote);
+});
+router.delete('/notes/:id', (req, res) => {
+    const targetNote = req.params.id 
+    deleteNote(targetNote, notes);
+    res.redirect('');
+});
 
-router.post('/api/notes', (req, res) => {
-    req.body.id = uuidv4()
-   const note = createNewNote(req.body, db);
-   
-   res.json(note)
-}) 
-//DELETE notes route
- module.exports = router;
+module.exports = router;
  

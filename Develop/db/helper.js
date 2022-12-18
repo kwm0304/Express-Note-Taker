@@ -12,11 +12,12 @@ function write(note) {
 
 function createNewNote(note, noteArray) {
     const { title, text, id } = note;
-    note.id = uuidv4()
+    id = uuidv4()
     noteArray.push(note)
     if (!title || !text) {
         throw new Error("Note 'title' and 'text' cannot be blank");
-    } else write(note)
+    } else fs.writeFileSync({ notes: noteArray}, null, 2)
+    return savedNote
 }
     
   module.exports = { read, write, createNewNote }
