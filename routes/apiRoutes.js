@@ -4,6 +4,7 @@ const { deleteNote, createNewNote } = require('../db/helper')
 const { v4: uuidv4 } = require('uuid');
 const { fstat } = require('fs');
 const path = require('path')
+const notes = require('../db/db.json')
 
 router.get('/notes', (req, res) => {
     fstat.readFile(path.join(_dirname, 'db', 'db.json'), 'utf-8', function (err,res) {
