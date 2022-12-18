@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();//Use app to link CRUD methods 
-const PORT = process.env.PORT || 3001;
+
 
 
 app.use(express.urlencoded({ extended: true }));// parse incoming string or array data
@@ -16,6 +16,5 @@ app.use("/", htmlRoutes)
 app.use(express.static(__dirname + 'public'));
 
 
-app.listen(3001, () => {
-    console.log(`API server now on ${PORT}`);
-  });
+app.listen(process.env.PORT || 3001)
+  
