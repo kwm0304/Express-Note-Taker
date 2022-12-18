@@ -1,6 +1,6 @@
 const {v4 : uuidv4} = require('uuid')
 const fs = require('fs');
-const { noteArray } = require('../db/db.json')
+const { noteArray } = require('./db.json')
 
 function read() {
     return readFileAsync(path.join(__dirname, "db.json"), "utf8");
